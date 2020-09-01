@@ -1,3 +1,4 @@
+#include "prompt.h"
 #include "headers.h"
 
 void prompt()
