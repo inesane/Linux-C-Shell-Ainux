@@ -4,5 +4,4 @@
 #include <sys/utsname.h>
 #include <errno.h>
 #include <limits.h>
-
-void prompt();
+#include <string.h>
