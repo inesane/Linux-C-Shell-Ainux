@@ -46,7 +46,7 @@ void cd(char *inputs[], int args, char home[])
             }
             if (isdir != 0)
             {
-                perror("ERROR: Directory does not exist or permissions not available\n");
+                perror("ERROR : Directory does not exist or permissions not available\n");
             }
         }
     }

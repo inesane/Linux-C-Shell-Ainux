@@ -6,7 +6,6 @@ void prompt()
     struct utsname sysname;
     char *login;
     login = getlogin();
-    //errno = 0;
     if (uname(&sysname) != 0)
     {
         perror("ERROR : Getting Path");
