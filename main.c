@@ -4,7 +4,6 @@ int main()
 {
     char home[PATH_MAX];
     getcwd(home, sizeof(home));
-    //printf("%s\n", home);
     while (1)
     {
         prompt();
@@ -38,6 +37,10 @@ int main()
         if (strcmp(inputs[0], "cd") == 0)
         {
             cd(inputs, args, home);
+        }
+        if (strcmp(inputs[0], "echo") == 0)
+        {
+            echo(inputs, args);
         }
         if (strcmp(inputs[0], "ls") == 0)
         {
