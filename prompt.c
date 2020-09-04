@@ -6,17 +6,16 @@ void prompt()
     struct utsname sysname;
     char *login;
     login = getlogin();
-    errno = 0;
+    //errno = 0;
     if (uname(&sysname) != 0)
     {
-        perror("uname");
-        exit(EXIT_FAILURE);
+        perror("ERROR : Getting Path");
     }
 
     char path[PATH_MAX];
     if (getcwd(path, sizeof(path)) == NULL)
     {
-        perror("getcwd() error");
+        perror("ERROR : Path");
     }
     printf("<%s@%s:~%s>", login, sysname.nodename, path);
 }
