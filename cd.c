@@ -1,6 +1,5 @@
 #include "headers.h"
 #include "cd.h"
-//implement cd ~/...
 void cd(char *inputs[], int args, char home[])
 {
     if (args > 2)
@@ -10,15 +9,12 @@ void cd(char *inputs[], int args, char home[])
     else if (args == 1)
     {
         chdir(home);
-        //printf("henlo");
     }
     else if (args == 2)
     {
-        //printf("entered");
         if (strcmp(inputs[1], "~") == 0)
         {
             chdir(home);
-            //printf("workffs\n");
         }
         else if (strcmp(inputs[1], ".") == 0)
         {
@@ -29,8 +25,25 @@ void cd(char *inputs[], int args, char home[])
         }
         else
         {
-            int isdir;
-            isdir = chdir(inputs[1]);
+            int i = 0, isdir;
+            if (inputs[1][0] == '~')
+            {
+                int length = strlen(home) + strlen(inputs[1]);
+                char temp[length];
+                for (i = 0; i < strlen(home); i++)
+                {
+                    temp[i] = home[i];
+                }
+                for (int i = strlen(home); i < length; i++)
+                {
+                    temp[i] = inputs[1][i - strlen(home) + 1];
+                }
+                isdir = chdir(temp);
+            }
+            else
+            {
+                isdir = chdir(inputs[1]);
+            }
             if (isdir != 0)
             {
                 perror("ERROR: Directory does not exist or permissions not available\n");
