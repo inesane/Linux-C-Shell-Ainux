@@ -6,9 +6,12 @@
 #include <limits.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <dirent.h>
+#include <sys/types.h>
 
 #include "prompt.h"
 #include "pwd.h"
 #include "cd.h"
 #include "ls.h"
 #include "echo.h"
+#include "pinfo.h"

@@ -2,7 +2,7 @@
 
 int main()
 {
-    char home[PATH_MAX];
+    char home[1000];
     getcwd(home, sizeof(home));
     while (1)
     {
@@ -44,7 +44,11 @@ int main()
         }
         if (strcmp(inputs[0], "ls") == 0)
         {
-            ls(inputs, args);
+            ls(inputs, args, home);
+        }
+        if(strcmp(inputs[0], "pinfo")==0)
+        {
+            pinfo();
         }
     }
 }
