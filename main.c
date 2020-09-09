@@ -63,7 +63,7 @@ int main()
             }
             if (strcmp(inputs[0], "pinfo") == 0)
             {
-                pinfo();
+                pinfo(inputs, args, home);
             }
             if (strcmp(inputs[0], "exit") == 0)
             {
