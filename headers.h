@@ -8,6 +8,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
 
 #include "prompt.h"
 #include "pwd.h"

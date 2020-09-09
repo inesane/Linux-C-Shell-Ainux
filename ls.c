@@ -3,7 +3,7 @@
 
 int fileperms(char *file_name, char *path)
 {
-    char perms[10];
+    char perms[11];
     struct stat stats;
     stat(path, &stats);
     if (S_ISDIR(stats.st_mode))
@@ -46,18 +46,25 @@ int fileperms(char *file_name, char *path)
         perms[9] = 'x';
     else
         perms[9] = '-';
+    perms[10] = '\0';
     printf("%s ", perms);
-    printf("%ld ", stats.st_nlink);
-    /*uid_t uid = stats.st_uid;
-    gid_t gid = stats.st_gid;
+    printf("%*ld ", 4, stats.st_nlink);
     struct passwd *pwd;
-    pwd = getpwuid(uid);
-    printf("%s", pwd->pw_name);
+    pwd = getpwuid(stats.st_uid);
+    printf("%*s ", 15, pwd->pw_name);
     struct group *grp;
-    grp = getgrgid(gid);
-    printf("%s", grp->gr_name);*/
-    int size = stats.st_size;
-    printf("%d\n", size);
+    grp = getgrgid(stats.st_gid);
+    printf("%*s ", 15, grp->gr_name);
+    int filesize = stats.st_size;
+    printf("%*d ", 7, filesize);
+    time_t t;
+    struct tm *tim;
+    tim = localtime(&stats.st_mtime);
+    char timearr[100];
+    strftime(timearr, sizeof(timearr), "%b %e %R", tim);
+    printf("%s ", timearr);
+    printf("%s\n", file_name);
+    memset(timearr, 0, strlen(timearr));
 }
 
 void ls(char *inputs[], int args, char home[])
@@ -130,21 +137,25 @@ void ls(char *inputs[], int args, char home[])
                         {
                             temp[j] = home[j];
                         }
-                        for (int j = strlen(home); j < length; j++)
+                        for (j = strlen(home); j < length; j++)
                         {
                             temp[j] = inputs[i][j - strlen(home) + 1];
                         }
+                        printf("%s %ld\n", temp, strlen(temp));
                         isdir = chdir(temp);
                         if (isdir == 0)
                         {
-                            temps[dirs] = malloc(4096 * sizeof(char));
-                            strcpy(temps[dirs], temp);
-                            dirs++;
+                            temps[dirs] = malloc(sizeof(char) * length);
+                            for (j = 0; j <= strlen(temp); j++)
+                            {
+                                temps[dirs][j] = temp[j];
+                            }
                         }
                         else
                         {
                             printf("ERROR : Argument is not a directory\n");
                         }
+                        dirs++;
                     }
                     if (isdir != 0)
                     {
@@ -180,7 +191,7 @@ void ls(char *inputs[], int args, char home[])
                 {
                     char path[2000];
                     sprintf(path, "%s/%s", ".", dirlist[j]->d_name);
-                    fileperms(".", path);
+                    fileperms(dirlist[j]->d_name, path);
                 }
             }
             else
@@ -211,8 +222,9 @@ void ls(char *inputs[], int args, char home[])
                     {
                         char path[2000];
                         sprintf(path, "%s/%s", temps[i], dirlist[j]->d_name);
-                        fileperms(temps[i], path);
+                        fileperms(dirlist[j]->d_name, path);
                     }
+                    printf("\n");
                 }
             }
         }
@@ -291,7 +303,7 @@ void ls(char *inputs[], int args, char home[])
                     {
                         char path[2000];
                         sprintf(path, "%s/%s", ".", dirlist[j]->d_name);
-                        fileperms(".", path);
+                        fileperms(dirlist[j]->d_name, path);
                     }
                 }
             }
@@ -333,10 +345,37 @@ void ls(char *inputs[], int args, char home[])
                         {
                             char path[2000];
                             sprintf(path, "%s/%s", temps[i], dirlist[j]->d_name);
-                            fileperms(temps[i], path);
+                            fileperms(dirlist[j]->d_name, path);
                         }
                     }
+                    printf("\n");
                 }
+            }
+        }
+        else
+        {
+            for (i = 0; i < dirs; i++)
+            {
+                printf("%s:\n", temps[i]);
+                struct dirent **dirlist;
+                filesanddirs = scandir(temps[i], &dirlist, NULL, alphasort);
+                if (filesanddirs < 0)
+                    perror("ERROR : ");
+                else
+                {
+                    for (j = 0; j < filesanddirs; j++)
+                    {
+                        if (dirlist[j]->d_name[0] == '.')
+                        {
+                        }
+                        else
+                        {
+                            printf("%s  ", dirlist[j]->d_name);
+                        }
+                    }
+                    printf("\n");
+                }
+                printf("\n");
             }
         }
     }
