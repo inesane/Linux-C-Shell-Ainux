@@ -84,9 +84,6 @@ void pinfo(char *inputs[], int args, char home[])
             }
         }
     }
-    else if (args == 2)
-    {
-    }
     else
     {
         printf("ERROR : Invalid Number of Arguments\n");

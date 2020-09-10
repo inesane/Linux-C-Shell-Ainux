@@ -1,0 +1,4 @@
+history 28 28
+pinfo
+pinfo 312
+pwd ww

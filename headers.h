@@ -11,6 +11,9 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <fcntl.h>
 
 #include "prompt.h"
 #include "pwd.h"
@@ -18,3 +21,9 @@
 #include "ls.h"
 #include "echo.h"
 #include "pinfo.h"
+#include "fore.h"
+#include "history.h"
+#include "back.h"
+#include "historyprint.h"
+
+struct Node* ll;
