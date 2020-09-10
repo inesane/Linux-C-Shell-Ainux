@@ -1,4 +1,20 @@
-history 28 28
+ls
+make
+./ainux
+ls
+cd
 pinfo
-pinfo 312
-pwd ww
+ls
+cd ..
+cd ~
+./ainux
+ls
+pwd
+pinfo
+pinfo
+./ainux
+pinfo
+ps
+	ls
+	ls
+	ls ; cd ..	pinfo

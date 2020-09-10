@@ -33,11 +33,11 @@ int main()
         {
             char *inputs[100];
             args = 0;
-            inputs[args] = strtok(token[j], " ");
+            inputs[args] = strtok(token[j], " \n\t\r");
             while (inputs[args] != NULL)
             {
                 args++;
-                inputs[args] = strtok(NULL, " ");
+                inputs[args] = strtok(NULL, " \n\t\r");
             }
             if ((inputs[0] != NULL) && (j == 0))
             {
