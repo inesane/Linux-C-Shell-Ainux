@@ -141,7 +141,6 @@ void ls(char *inputs[], int args, char home[])
                         {
                             temp[j] = inputs[i][j - strlen(home) + 1];
                         }
-                        //printf("%s %ld\n", temp, strlen(temp));
                         isdir = chdir(temp);
                         if (isdir == 0)
                         {

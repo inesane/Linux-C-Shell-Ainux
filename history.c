@@ -18,12 +18,9 @@ void history(char *command, int args, char home[])
             commands++;
         }
     }
-    //printf("%d\n", commands);
     if (commands < 20)
     {
-        //printf("%s\n", command);
         write(fd, command, strlen(command) - 1);
-        //write(fd, "\n", sizeof("\n"));
     }
     else
     {
@@ -42,7 +39,6 @@ void history(char *command, int args, char home[])
                 break;
             }
         }
-        // lseek(fd, buffer[remove], size - remove);
         lseek(fd, 0, SEEK_SET);
         write(fd, buffer + remove + 1, strlen(buffer) - remove - 1);
         write(fd, command, strlen(command) - 1);

@@ -25,10 +25,6 @@ int main()
             ii++;
             token[ii] = strtok(NULL, ";");
         }
-        /*for (int i = 0; i < ii; i++)
-        {
-            printf("%s\n", token[i]);
-        }*/
         for (int j = 0; j < ii; j++)
         {
             char *inputs[100];
@@ -42,6 +38,29 @@ int main()
             if ((inputs[0] != NULL) && (j == 0))
             {
                 history(fullline, args, home);
+            }
+            int stdinCopy = dup(STDIN_FILENO);
+            int stdoutCopy = dup(STDOUT_FILENO);
+            redirection(inputs, args);
+            int argstemp = args;
+            int w, argsactual = 0;
+            char *inputstemp[100];
+            for (w = 0; w < argstemp; w++)
+            {
+                if (strcmp(inputs[w], ">") == 0 || strcmp(inputs[w], ">>") == 0 || strcmp(inputs[w], "<") == 0)
+                {
+                    args=args-2;
+                    w++;
+                }
+                else
+                {
+                    inputstemp[argsactual] = inputs[w];
+                    argsactual++;
+                }
+            }
+            for (w = 0; w < args; w++)
+            {
+                inputs[w] = inputstemp[w];
             }
             if (inputs[0] == NULL)
             {
@@ -66,7 +85,7 @@ int main()
             {
                 pinfo(inputs, args, home);
             }
-            else if (strcmp(inputs[0], "exit") == 0)
+            else if (strcmp(inputs[0], "quit") == 0)
             {
                 exit(0);
             }
@@ -76,10 +95,6 @@ int main()
             }
             else
             {
-                /*for (int w = 0; w < args; w++)
-                {
-                    printf("%s****", inputs[w]);
-                }*/
                 if (strcmp(inputs[args - 1], "&") == 0)
                 {
                     back(inputs, args);
@@ -89,6 +104,8 @@ int main()
                     fore(inputs, args);
                 }
             }
+            dup2(stdinCopy, STDIN_FILENO);
+            dup2(stdoutCopy, STDOUT_FILENO);
         }
     }
 }

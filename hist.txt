@@ -1,20 +1,20 @@
+sort b.txt
+sort < b.txt
+sort 2.txt
+sort < 3.txt
+sort 1.txt
+sort < 1.txt
+sort < 2.txt
+sort < 3.txt > 1.txt
+quit
+sort < 3.txt
+cat 3.txt
+cat > 3.txt
+sort < 3.txt
+sort < 3.txt > 1.txt
+cat 1.txt
+cat 3.txt
+quit
+ls'
 ls
-make
-./ainux
-ls
-cd
-pinfo
-ls
-cd ..
-cd ~
-./ainux
-ls
-pwd
-pinfo
-pinfo
-./ainux
-pinfo
-ps
-	ls
-	ls
-	ls ; cd ..	pinfo
+quit

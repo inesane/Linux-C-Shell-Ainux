@@ -25,5 +25,6 @@
 #include "history.h"
 #include "back.h"
 #include "historyprint.h"
+#include "redirection.h"
 
 struct Node* ll;

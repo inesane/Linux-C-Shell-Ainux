@@ -42,7 +42,6 @@ void back(char *inputs[], int args)
     if (forkreturn == 0)
     {
         setpgid(0, 0);
-        //printf("****%s****", argv[0]);
         if (execvp(argv[0], argv) < 0)
         {
             printf("ERROR : Execvp Failed\n");
