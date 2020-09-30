@@ -19,14 +19,14 @@ void fore(char *inputs[], int args)
         argv[args] = NULL;
         if (execvp(inputs[0], argv) < 0)
         {
-            printf("ERROR : Execvp Failed\n");
+            fprintf(stderr, "ERROR : Execvp Failed\n");
             _exit(EXIT_FAILURE);
         }
         _exit(0);
     }
     else if (forkreturn < 0)
     {
-        printf("ERROR : Fork Failed\n");
+        fprintf(stderr, "ERROR : Fork Failed\n");
         exit(0);
     }
     else

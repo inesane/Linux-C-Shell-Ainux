@@ -117,7 +117,7 @@ void ls(char *inputs[], int args, char home[])
             {
                 if (inputs[i][0] == '-')
                 {
-                    printf("ERROR : Invalid Flag\n");
+                    fprintf(stderr, "ERROR : Invalid Flag\n");
                     invflag = 1;
                 }
                 struct stat stats;
@@ -152,13 +152,13 @@ void ls(char *inputs[], int args, char home[])
                         }
                         else
                         {
-                            printf("ERROR : Argument is not a directory\n");
+                            fprintf(stderr, "ERROR : Argument is not a directory\n");
                         }
                         dirs++;
                     }
                     if (isdir != 0)
                     {
-                        printf("ERROR : Argument is not a directory");
+                        fprintf(stderr, "ERROR : Argument is not a directory");
                     }
                 }
             }

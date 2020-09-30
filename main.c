@@ -93,8 +93,12 @@ int main()
             {
                 history(fullline, args, home);
             }
+            int stdindup = dup(STDIN_FILENO);
+            int stdoutdup = dup(STDOUT_FILENO);
             for (int k = 0; k < loops; k++)
             {
+                int pipearr[2];
+                pipe(pipearr);
                 char *inputs[100];
                 args = 0;
                 inputs[args] = strtok(pipedinputs[k], " \n\t\r");
@@ -103,8 +107,23 @@ int main()
                     args++;
                     inputs[args] = strtok(NULL, " \n\t\r");
                 }
-                int stdinCopy = dup(STDIN_FILENO);
-                int stdoutCopy = dup(STDOUT_FILENO);
+                if (k != loops - 1)
+                {
+                    dup2(pipearr[1], STDOUT_FILENO);
+                    if (pipearr[1] < 0)
+                    {
+                        fprintf(stderr, "Could not duplicate file descriptor");
+                    }
+                    close(pipearr[1]);
+                }
+                else
+                {
+                    dup2(stdoutdup, STDOUT_FILENO);
+                    if (stdoutdup < 0)
+                    {
+                        fprintf(stderr, "Could not duplicate file descriptor");
+                    }
+                }
                 if (redirection(inputs, args) == 0)
                 {
                     int argstemp = args;
@@ -129,8 +148,22 @@ int main()
                     }
                     commandrun(inputs, args, home);
                 }
-                dup2(stdinCopy, STDIN_FILENO);
-                dup2(stdoutCopy, STDOUT_FILENO);
+                dup2(pipearr[0], STDIN_FILENO);
+                if (pipearr[0] < 0)
+                {
+                    fprintf(stderr, "Could not duplicate file descriptor");
+                }
+                close(pipearr[0]);
+            }
+            dup2(stdindup, STDIN_FILENO);
+            if (stdindup < 0)
+            {
+                fprintf(stderr, "Could not duplicate file descriptor");
+            }
+            dup2(stdoutdup, STDOUT_FILENO);
+            if (stdoutdup < 0)
+            {
+                fprintf(stderr, "Could not duplicate file descriptor");
             }
         }
     }

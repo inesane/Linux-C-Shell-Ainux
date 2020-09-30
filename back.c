@@ -44,14 +44,14 @@ void back(char *inputs[], int args)
         setpgid(0, 0);
         if (execvp(argv[0], argv) < 0)
         {
-            printf("ERROR : Execvp Failed\n");
+            fprintf(stderr, "ERROR : Execvp Failed\n");
             _exit(EXIT_FAILURE);
         }
         _exit(0);
     }
     else if (forkreturn < 0)
     {
-        printf("ERROR : Fork Failed\n");
+        fprintf(stderr, "ERROR : Fork Failed\n");
         exit(0);
     }
     else
