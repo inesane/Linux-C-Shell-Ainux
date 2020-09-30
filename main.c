@@ -1,5 +1,51 @@
 #include "headers.h"
 
+void commandrun(char *inputs[], int args, char home[])
+{
+    if (inputs[0] == NULL)
+    {
+    }
+    else if (strcmp(inputs[0], "pwd") == 0)
+    {
+        pwd();
+    }
+    else if (strcmp(inputs[0], "cd") == 0)
+    {
+        cd(inputs, args, home);
+    }
+    else if (strcmp(inputs[0], "echo") == 0)
+    {
+        echo(inputs, args);
+    }
+    else if (strcmp(inputs[0], "ls") == 0)
+    {
+        ls(inputs, args, home);
+    }
+    else if (strcmp(inputs[0], "pinfo") == 0)
+    {
+        pinfo(inputs, args, home);
+    }
+    else if (strcmp(inputs[0], "quit") == 0)
+    {
+        exit(0);
+    }
+    else if (strcmp(inputs[0], "history") == 0)
+    {
+        historyprint(inputs, args, home);
+    }
+    else
+    {
+        if (strcmp(inputs[args - 1], "&") == 0)
+        {
+            back(inputs, args);
+        }
+        else
+        {
+            fore(inputs, args);
+        }
+    }
+}
+
 int main()
 {
     ll = (struct Node *)malloc(sizeof(struct Node));
@@ -27,85 +73,65 @@ int main()
         }
         for (int j = 0; j < ii; j++)
         {
-            char *inputs[100];
-            args = 0;
-            inputs[args] = strtok(token[j], " \n\t\r");
-            while (inputs[args] != NULL)
+            int l, argstemp2;
+            char *inputstemp2[100];
+            int loops = 1;
+            for (l = 0; l < strlen(token[j]); l++)
             {
-                args++;
-                inputs[args] = strtok(NULL, " \n\t\r");
+                if (token[j][l] == '|')
+                    loops++;
             }
-            if ((inputs[0] != NULL) && (j == 0))
+            int pipedargs = 0;
+            char *pipedinputs[100];
+            pipedinputs[pipedargs] = strtok(token[j], "|");
+            while (pipedinputs[pipedargs] != NULL)
+            {
+                pipedargs++;
+                pipedinputs[pipedargs] = strtok(NULL, "|");
+            }
+            if ((pipedinputs[0] != NULL) && (j == 0))
             {
                 history(fullline, args, home);
             }
-            int stdinCopy = dup(STDIN_FILENO);
-            int stdoutCopy = dup(STDOUT_FILENO);
-            redirection(inputs, args);
-            int argstemp = args;
-            int w, argsactual = 0;
-            char *inputstemp[100];
-            for (w = 0; w < argstemp; w++)
+            for (int k = 0; k < loops; k++)
             {
-                if (strcmp(inputs[w], ">") == 0 || strcmp(inputs[w], ">>") == 0 || strcmp(inputs[w], "<") == 0)
+                char *inputs[100];
+                args = 0;
+                inputs[args] = strtok(pipedinputs[k], " \n\t\r");
+                while (inputs[args] != NULL)
                 {
-                    args=args-2;
-                    w++;
+                    args++;
+                    inputs[args] = strtok(NULL, " \n\t\r");
                 }
-                else
+                int stdinCopy = dup(STDIN_FILENO);
+                int stdoutCopy = dup(STDOUT_FILENO);
+                if (redirection(inputs, args) == 0)
                 {
-                    inputstemp[argsactual] = inputs[w];
-                    argsactual++;
+                    int argstemp = args;
+                    int w, argsactual = 0;
+                    char *inputstemp[100];
+                    for (w = 0; w < argstemp; w++)
+                    {
+                        if (strcmp(inputs[w], ">") == 0 || strcmp(inputs[w], ">>") == 0 || strcmp(inputs[w], "<") == 0)
+                        {
+                            args = args - 2;
+                            w++;
+                        }
+                        else
+                        {
+                            inputstemp[argsactual] = inputs[w];
+                            argsactual++;
+                        }
+                    }
+                    for (w = 0; w < args; w++)
+                    {
+                        inputs[w] = inputstemp[w];
+                    }
+                    commandrun(inputs, args, home);
                 }
+                dup2(stdinCopy, STDIN_FILENO);
+                dup2(stdoutCopy, STDOUT_FILENO);
             }
-            for (w = 0; w < args; w++)
-            {
-                inputs[w] = inputstemp[w];
-            }
-            if (inputs[0] == NULL)
-            {
-            }
-            else if (strcmp(inputs[0], "pwd") == 0)
-            {
-                pwd();
-            }
-            else if (strcmp(inputs[0], "cd") == 0)
-            {
-                cd(inputs, args, home);
-            }
-            else if (strcmp(inputs[0], "echo") == 0)
-            {
-                echo(inputs, args);
-            }
-            else if (strcmp(inputs[0], "ls") == 0)
-            {
-                ls(inputs, args, home);
-            }
-            else if (strcmp(inputs[0], "pinfo") == 0)
-            {
-                pinfo(inputs, args, home);
-            }
-            else if (strcmp(inputs[0], "quit") == 0)
-            {
-                exit(0);
-            }
-            else if (strcmp(inputs[0], "history") == 0)
-            {
-                historyprint(inputs, args, home);
-            }
-            else
-            {
-                if (strcmp(inputs[args - 1], "&") == 0)
-                {
-                    back(inputs, args);
-                }
-                else
-                {
-                    fore(inputs, args);
-                }
-            }
-            dup2(stdinCopy, STDIN_FILENO);
-            dup2(stdoutCopy, STDOUT_FILENO);
         }
     }
 }
