@@ -32,5 +32,8 @@
 #include "jobs.h"
 #include "kjob.h"
 #include "overkill.h"
+#include "sig.h"
 
 struct Node* ll;
+int *currfg;
+char *commfg[4096];

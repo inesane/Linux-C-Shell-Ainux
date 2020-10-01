@@ -86,6 +86,12 @@ void commandrun(char *inputs[], int args, char home[], char rand[])
 
 int main()
 {
+    currfg = (int *)malloc(sizeof(int));
+    *currfg=-1;
+    for(int h=0;h<1000;h++)
+    {
+        commfg[h]=(char *)malloc(1000*sizeof(char));
+    }
     char rand[1000];
     rand[0] = '\0';
     ll = (struct Node *)malloc(sizeof(struct Node));

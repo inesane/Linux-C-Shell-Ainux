@@ -6,6 +6,7 @@ void fore(char *inputs[], int args)
     int forkreturn = fork();
     if (forkreturn == 0)
     {
+        setpgid(0, 0);
         char *argv[args + 1];
         for (int i = 0; i < args; i++)
         {
@@ -31,7 +32,37 @@ void fore(char *inputs[], int args)
     }
     else
     {
-        waitpid(forkreturn, NULL, 0);
+        signal(SIGTTOU, SIG_IGN);
+        signal(SIGTTIN, SIG_IGN);
+        tcsetpgrp(STDIN_FILENO, forkreturn);
+        int stat;
+        waitpid(forkreturn, &stat, WUNTRACED);
+        tcsetpgrp(STDIN_FILENO, getpgrp());
+        signal(SIGTTOU, SIG_DFL);
+        signal(SIGTTIN, SIG_DFL);
+        if (WIFSTOPPED(stat))
+        {
+            *currfg=forkreturn;
+            for(int k=0;k<args;k++)
+            {
+                strcpy(commfg[k], inputs[k]);
+            }
+            struct Node *copy2 = ll;
+            while (copy2->next != NULL)
+            {
+                copy2 = copy2->next;
+            }
+            struct Node *temp2;
+            temp2 = (struct Node *)malloc(sizeof(struct Node));
+            temp2->data = forkreturn;
+            for (int k = 0; k < args; k++)
+            {
+                strcpy(temp2->name[k], inputs[k]);
+            }
+            temp2->next = NULL;
+            copy2->next = temp2;
+        }
+        *currfg = -1;
         return;
     }
 }

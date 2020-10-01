@@ -26,6 +26,37 @@ void cd(char *inputs[], int args, char home[], char prevdir[])
         }
         else if (strcmp(inputs[1], "-") == 0)
         {
+            char path[PATH_MAX];
+            getcwd(path, sizeof(path));
+            int count = 0;
+            for (int i = 0; i < strlen(home); i++)
+            {
+                if (home[i] == path[i])
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (count == strlen(home))
+            {
+                int pathlength = strlen(path);
+                int homelength = strlen(home);
+                int i;
+                char temp[pathlength - homelength + 1];
+                temp[0] = '~';
+                for (i = 1; i < pathlength - homelength + 1; i++)
+                {
+                    temp[i] = path[homelength + i - 1];
+                }
+                printf("%s\n", temp);
+            }
+            else
+            {
+                printf("%s\n", path);
+            }
             if (prevdir[0] == '\0')
             {
             }

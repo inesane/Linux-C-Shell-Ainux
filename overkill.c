@@ -10,6 +10,7 @@ void overkill(char *inputs[], int args)
     while (copy != NULL)
     {
         kill(copy->data, 9);
+        //printf("Killed process with pid %d\n", copy->data);
         previous = copy;
         copy = copy->next;
     }
