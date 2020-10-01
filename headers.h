@@ -30,5 +30,7 @@
 #include "bg.h"
 #include "env.h"
 #include "jobs.h"
+#include "kjob.h"
+#include "overkill.h"
 
 struct Node* ll;

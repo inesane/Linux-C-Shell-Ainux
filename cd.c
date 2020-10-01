@@ -1,7 +1,7 @@
 #include "headers.h"
 #include "cd.h"
 
-void cd(char *inputs[], int args, char home[])
+void cd(char *inputs[], int args, char home[], char prevdir[])
 {
     if (args > 2)
     {
@@ -23,6 +23,16 @@ void cd(char *inputs[], int args, char home[])
         else if (strcmp(inputs[1], "..") == 0)
         {
             chdir("..");
+        }
+        else if (strcmp(inputs[1], "-") == 0)
+        {
+            if (prevdir[0] == '\0')
+            {
+            }
+            else
+            {
+                chdir(prevdir);
+            }
         }
         else
         {

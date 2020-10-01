@@ -1,6 +1,6 @@
 #include "headers.h"
 
-void commandrun(char *inputs[], int args, char home[])
+void commandrun(char *inputs[], int args, char home[], char rand[])
 {
     if (inputs[0] == NULL)
     {
@@ -11,7 +11,10 @@ void commandrun(char *inputs[], int args, char home[])
     }
     else if (strcmp(inputs[0], "cd") == 0)
     {
-        cd(inputs, args, home);
+        char prevdir[1000];
+        getcwd(prevdir, sizeof(prevdir));
+        cd(inputs, args, home, rand);
+        strcpy(rand, prevdir);
     }
     else if (strcmp(inputs[0], "echo") == 0)
     {
@@ -48,17 +51,25 @@ void commandrun(char *inputs[], int args, char home[])
     {
         bg(inputs, args);
     }
-    else if (strcmp(inputs[0], "setenv")==0)
+    else if (strcmp(inputs[0], "setenv") == 0)
     {
         set(inputs, args);
     }
-    else if(strcmp(inputs[0], "unsetenv")==0)
+    else if (strcmp(inputs[0], "unsetenv") == 0)
     {
         unset(inputs, args);
     }
-    else if(strcmp(inputs[0], "jobs")==0)
+    else if (strcmp(inputs[0], "jobs") == 0)
     {
         jobs(args);
+    }
+    else if (strcmp(inputs[0], "kjob") == 0)
+    {
+        kjob(inputs, args);
+    }
+    else if (strcmp(inputs[0], "overkill") == 0)
+    {
+        overkill(inputs, args);
     }
     else
     {
@@ -75,6 +86,8 @@ void commandrun(char *inputs[], int args, char home[])
 
 int main()
 {
+    char rand[1000];
+    rand[0] = '\0';
     ll = (struct Node *)malloc(sizeof(struct Node));
     ll->data = -1;
     ll->next = NULL;
@@ -85,7 +98,13 @@ int main()
         prompt(home);
         char *buffer = malloc(sizeof(char) * 4096);
         size_t bufsize = 0;
-        getline(&buffer, &bufsize, stdin);
+        ssize_t ctrd;
+        ctrd = getline(&buffer, &bufsize, stdin);
+        if (ctrd == (unsigned long)-1)
+        {
+            printf("\n");
+            exit(0);
+        }
         char fullline[strlen(buffer)];
         strcpy(fullline, buffer);
         buffer[strlen(buffer) - 1] = '\0';
@@ -173,7 +192,7 @@ int main()
                     {
                         inputs[w] = inputstemp[w];
                     }
-                    commandrun(inputs, args, home);
+                    commandrun(inputs, args, home, rand);
                 }
                 dup2(pipearr[0], STDIN_FILENO);
                 if (pipearr[0] < 0)

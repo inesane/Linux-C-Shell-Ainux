@@ -1,20 +1,20 @@
+ls
+sleep 25 &
+sleep 35 &
 jobs
-jobs
-jobs
-emacs &
-jobs
-pinfo 27095
-vim &
-jobs
-pinfo 27130
-quit
-vim &
-jobs
-sleep 10 &
+overkill
 jobs
 quit
+quit
+sleep 100 &
+sleep 101 &
+jobs
+overkill
+jobs
 vim &
 jobs
-sleep 27 &
+sleep 25 &
 jobs
-quit
+overkill
+ls
+jobs
