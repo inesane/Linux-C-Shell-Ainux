@@ -1,20 +1,20 @@
-cat < 4.txt > 2.txt
-cat < 4.txt > 2.txt
-ls
+jobs
+jobs
+jobs
+emacs &
+jobs
+pinfo 27095
+vim &
+jobs
+pinfo 27130
 quit
-echo apddkwpjdpwdj | wc
-echo asdlsdlsldl | wc | wc
+vim &
+jobs
+sleep 10 &
+jobs
 quit
-quit
-cd ..
-mkdir test
-cd test
-echo a > 1.txt
-cat 1.txt
-cat 1.txt | cat > 2.txt
-cat 2.txt
-cat 1.txt | cat >> 2.txt
-cat 2.txt
-quit
-cat 1.txt | cat > 2.txt
+vim &
+jobs
+sleep 27 &
+jobs
 quit

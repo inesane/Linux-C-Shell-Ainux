@@ -20,7 +20,7 @@ void handler(int sig)
     }
     if (copy != NULL)
     {
-        fprintf(stderr, "%s with pid %d exited with exit code %d\n", copy->name, copy->data, WEXITSTATUS(status));
+        fprintf(stderr, "%s with pid %d exited with exit code %d\n", copy->name[0], copy->data, WEXITSTATUS(status));
         previous->next = copy->next;
     }
 }
@@ -66,7 +66,10 @@ void back(char *inputs[], int args)
         struct Node *temp;
         temp = (struct Node *)malloc(sizeof(struct Node));
         temp->data = forkreturn;
-        strcpy(temp->name, inputs[0]);
+        for (int k = 0; k < args; k++)
+        {
+            strcpy(temp->name[k], inputs[k]);
+        }
         temp->next = NULL;
         copy->next = temp;
         signal(SIGCHLD, handler);

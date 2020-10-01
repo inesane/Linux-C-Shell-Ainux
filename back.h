@@ -7,7 +7,7 @@ struct Node
 {
     int data;
     struct Node *next;
-    char name[30];
+    char name[30][1024];
 };
 
 #endif

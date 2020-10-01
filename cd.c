@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "cd.h"
+
 void cd(char *inputs[], int args, char home[])
 {
     if (args > 2)

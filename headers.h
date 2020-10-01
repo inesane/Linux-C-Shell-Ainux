@@ -26,5 +26,9 @@
 #include "back.h"
 #include "historyprint.h"
 #include "redirection.h"
+#include "fg.h"
+#include "bg.h"
+#include "env.h"
+#include "jobs.h"
 
 struct Node* ll;

@@ -27,11 +27,38 @@ void commandrun(char *inputs[], int args, char home[])
     }
     else if (strcmp(inputs[0], "quit") == 0)
     {
-        exit(0);
+        if (args == 1)
+        {
+            exit(0);
+        }
+        else
+        {
+            fprintf(stderr, "ERROR: Wrong number of arguments\n");
+        }
     }
     else if (strcmp(inputs[0], "history") == 0)
     {
         historyprint(inputs, args, home);
+    }
+    else if (strcmp(inputs[0], "fg") == 0)
+    {
+        fg(inputs, args);
+    }
+    else if (strcmp(inputs[0], "bg") == 0)
+    {
+        bg(inputs, args);
+    }
+    else if (strcmp(inputs[0], "setenv")==0)
+    {
+        set(inputs, args);
+    }
+    else if(strcmp(inputs[0], "unsetenv")==0)
+    {
+        unset(inputs, args);
+    }
+    else if(strcmp(inputs[0], "jobs")==0)
+    {
+        jobs(args);
     }
     else
     {

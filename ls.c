@@ -158,7 +158,7 @@ void ls(char *inputs[], int args, char home[])
                     }
                     if (isdir != 0)
                     {
-                        fprintf(stderr, "ERROR : Argument is not a directory");
+                        fprintf(stderr, "ERROR : Argument is not a directory\n");
                     }
                 }
             }
