@@ -42,8 +42,9 @@ void fore(char *inputs[], int args)
         signal(SIGTTIN, SIG_DFL);
         if (WIFSTOPPED(stat))
         {
-            *currfg=forkreturn;
-            for(int k=0;k<args;k++)
+            *currfg = forkreturn;
+            *elements = args;
+            for (int k = 0; k < args; k++)
             {
                 strcpy(commfg[k], inputs[k]);
             }

@@ -27,13 +27,14 @@ void fg(char *inputs[], int args)
         }
         copy = ll->next;
         previous = ll;
+        int checker = 1;
         while (copy != NULL)
         {
-            if (counter == jobno)
+            if (checker == jobno)
             {
                 break;
             }
-            counter--;
+            checker++;
             previous = copy;
             copy = copy->next;
         }
@@ -42,7 +43,15 @@ void fg(char *inputs[], int args)
         signal(SIGTTIN, SIG_IGN);
         tcsetpgrp(STDIN_FILENO, copy->data);
         kill(copy->data, SIGCONT);
+        *currfg = copy->data;
+        *elements = args;
+        for (int k = 0; k < args; k++)
+        {
+            strcpy(commfg[k], inputs[k]);
+        }
         waitpid(copy->data, &stat, WUNTRACED);
+        previous->next = copy->next;
+        *currfg = -1;
         tcsetpgrp(STDIN_FILENO, getpgrp());
         signal(SIGTTOU, SIG_DFL);
         signal(SIGTTIN, SIG_DFL);
@@ -55,7 +64,7 @@ void fg(char *inputs[], int args)
             }
             struct Node *temp2;
             copy2->next = copy;
-            copy->next=NULL;
+            copy->next = NULL;
         }
     }
 }

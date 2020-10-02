@@ -1,20 +1,20 @@
+fg 2
+jobs
+vim &
+vim &
+jobs 2
+jobs
+fg 2
+jobs
+quit
+vim &
+vim &
+jobs
 fg 1
 jobs
 quit
-cd -
-quit
-cd -
-cd ..
-cd -
-quit
-cd -
-cd ..
-cd -
-quit
-cd test
-cd -
-cd ..
-cd -
-cd -
-cd -
+sleep 5
+jobs
+sleep 5
+jobs
 quit

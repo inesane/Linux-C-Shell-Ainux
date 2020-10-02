@@ -29,3 +29,4 @@ history.c - keeps commands entered into shell into hist.txt file
 historyprint.c - prints history of commands run in the shell. User can specify the number of commands to show uptil 20. Just running history without specifying the number of commands prints the last 10 commands entered. Specifying a number of commands higher than 20 just prints 20 commands
 
 hist.txt - stores history of commands upto 20 commands
+

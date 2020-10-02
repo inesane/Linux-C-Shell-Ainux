@@ -10,6 +10,7 @@ void kjob(char *inputs[], int args)
     }
     else
     {
+        signal(SIGCHLD, handler);
         int flag = 0;
         int jobno = atoi(inputs[1]);
         int signo = atoi(inputs[2]);

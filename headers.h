@@ -37,3 +37,4 @@
 struct Node* ll;
 int *currfg;
 char *commfg[4096];
+int *elements;

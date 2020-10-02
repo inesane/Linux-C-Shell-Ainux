@@ -86,11 +86,15 @@ void commandrun(char *inputs[], int args, char home[], char rand[])
 
 int main()
 {
+    signal(SIGTSTP, ctrlz);
+    signal(SIGINT, ctrlc);
     currfg = (int *)malloc(sizeof(int));
-    *currfg=-1;
-    for(int h=0;h<1000;h++)
+    *currfg = -1;
+    elements = (int *)malloc(sizeof(int));
+    *elements = -1;
+    for (int h = 0; h < 1000; h++)
     {
-        commfg[h]=(char *)malloc(1000*sizeof(char));
+        commfg[h] = (char *)malloc(1000 * sizeof(char));
     }
     char rand[1000];
     rand[0] = '\0';

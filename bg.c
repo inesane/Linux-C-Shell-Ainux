@@ -20,20 +20,21 @@ void bg(char *inputs[], int args)
             previous = copy;
             copy = copy->next;
         }
-        if(jobno>counter||jobno<=0)
+        if (jobno > counter || jobno <= 0)
         {
             fprintf(stderr, "ERROR: Invalid job number\n");
             return;
         }
         copy = ll->next;
         previous = ll;
+        int checker = 1;
         while (copy != NULL)
         {
-            if (counter == jobno)
+            if (checker == jobno)
             {
                 break;
             }
-            counter--;
+            checker++;
             previous = copy;
             copy = copy->next;
         }
