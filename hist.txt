@@ -1,20 +1,20 @@
-fg 2
+kill 1 9
+kjob 1 29
+ls
+sleep 50 &
 jobs
-vim &
-vim &
-jobs 2
+kjob 1 340204
 jobs
-fg 2
+kjob 1 9
 jobs
+sleep 50 &
+jobs
+kill 1 4204003
+kjob 1 239932
+kjob 1 9
+ls
 quit
-vim &
-vim &
-jobs
-fg 1
-jobs
-quit
-sleep 5
-jobs
-sleep 5
-jobs
+ls | sleep 50
+kill
+ls
 quit

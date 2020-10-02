@@ -16,7 +16,7 @@ pwd.c - displays the directory we are present in. Displays relative paths in cas
 
 echo.c - prints the argument given
 
-ls command - allows us to display the files present in the current directory. Accepts relative and absolute paths. Accepts flags as well and prints hidden files and file permissions accordingly. Works for multiple directories as well and works in any order that the arguments are given in
+ls.c - allows us to display the files present in the current directory. Accepts relative and absolute paths. Accepts flags as well and prints hidden files and file permissions accordingly. Works for multiple directories as well and works in any order that the arguments are given in
 
 fore.c - allows us to implement foreground processes
 
@@ -30,3 +30,18 @@ historyprint.c - prints history of commands run in the shell. User can specify t
 
 hist.txt - stores history of commands upto 20 commands
 
+bg.c - changes state of a stopped background job with given job number to running
+
+fg.c - brings a job with given job number to the foreground and changes its state to running if it already isn't
+
+env.c - implemented setenv and unsetenv commands
+
+jobs.c - prints all of the running background processes with associated information pertaining to each
+
+kjob.c - sends a given signal to the job of given job number
+
+overkill.c - kills all the background processes
+
+redirection.c - input output redirection implemented
+
+sig.c - implemented signal handling

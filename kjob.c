@@ -27,7 +27,6 @@ void kjob(char *inputs[], int args)
             }
             previous = copy;
             copy = copy->next;
-            printf("%d\n", previous->data);
         }
         if (flag == 0)
             kill(previous->data, signo);
