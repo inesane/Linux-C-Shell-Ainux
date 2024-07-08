@@ -1,6 +1,6 @@
 # Linux Shell in C
 
-This Linux Shell in C can be run by compiling with `make` and then running with `./ainux`. 'History' has been implemented on top of the basic requirements.
+This Linux Shell in C can be run by compiling with `make` and then running with `./ainux`. 'history' has been implemented on top of the basic requirements.
 
 ## How to Run the Shell
 
