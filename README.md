@@ -1,47 +1,97 @@
-This Linux Shell in C can be run by compiling with 'make' and then running with ./ainux. 'history' has been implemented on top of the basic requirements.
+# Linux Shell in C
 
-Files:
+This Linux Shell in C can be run by compiling with `make` and then running with `./ainux`. 'History' has been implemented on top of the basic requirements.
 
-Corresponding error messages will be displayed as well in case invalid arguments or a wrong number of arguments are provided upon the execution of a certain command (depending upon their working in terminal)
+## How to Run the Shell
 
-makefile - used so that we can compile all the files present
+1. Compile the project using the Makefile:
+    ```bash
+    make
+    ```
+2. Run the shell executable:
+    ```bash
+    ./ainux
+    ```
 
-main.c - main file where we are calling all our functions to execute commands. Tokenizes inputs and seperates commands by semicolons
+## Files
 
-prompt.c - prints prompt of the shell and changes prompt accordingly if we change the present directory we are in
+### makefile
+- Used to compile all the files present.
 
-cd.c - allows us to change the directory that we are present in. Takes both absolute and relative paths
+### main.c
+- Main file where we call all our functions to execute commands.
+- Tokenizes inputs and separates commands by semicolons.
 
-pwd.c - displays the directory we are present in. Displays relative paths in case the directory we are in is present inside the shell directory and absolute path in all other cases
+### prompt.c
+- Prints the prompt of the shell and changes the prompt accordingly if we change the present directory.
 
-echo.c - prints the argument given
+### cd.c
+- Allows us to change the directory that we are present in.
+- Takes both absolute and relative paths.
 
-ls.c - allows us to display the files present in the current directory. Accepts relative and absolute paths. Accepts flags as well and prints hidden files and file permissions accordingly. Works for multiple directories as well and works in any order that the arguments are given in
+### pwd.c
+- Displays the directory we are present in.
+- Displays relative paths if the directory is inside the shell directory and absolute paths otherwise.
 
-fore.c - allows us to implement foreground processes
+### echo.c
+- Prints the argument given.
 
-back.c - allows us to implement background processes and prints whenever the background process finishes executing
+### ls.c
+- Allows us to display the files present in the current directory.
+- Accepts relative and absolute paths.
+- Accepts flags to print hidden files and file permissions.
+- Works for multiple directories in any order of arguments.
 
-pinfo.c - prints process related info. Either prints info of the currently running process if not given a pid number or gives the info of any pid number. Accepts at max 1 pid number and gives error otherwise
+### fore.c
+- Allows us to implement foreground processes.
 
-history.c - keeps commands entered into shell into hist.txt file
+### back.c
+- Allows us to implement background processes and prints whenever the background process finishes executing.
 
-historyprint.c - prints history of commands run in the shell. User can specify the number of commands to show uptil 20. Just running history without specifying the number of commands prints the last 10 commands entered. Specifying a number of commands higher than 20 just prints 20 commands
+### pinfo.c
+- Prints process-related info.
+- Prints info of the currently running process if no PID is given or gives the info of any specified PID.
+- Accepts at most 1 PID and gives an error otherwise.
 
-hist.txt - stores history of commands upto 20 commands
+### history.c
+- Keeps commands entered into the shell in `hist.txt`.
 
-bg.c - changes state of a stopped background job with given job number to running
+### historyprint.c
+- Prints the history of commands run in the shell.
+- The user can specify the number of commands to show up to 20.
+- Just running `history` without specifying the number of commands prints the last 10 commands entered.
+- Specifying a number higher than 20 just prints 20 commands.
 
-fg.c - brings a job with given job number to the foreground and changes its state to running if it already isn't
+### hist.txt
+- Stores history of commands up to 20 commands.
 
-env.c - implemented setenv and unsetenv commands
+### bg.c
+- Changes the state of a stopped background job with a given job number to running.
 
-jobs.c - prints all of the running background processes with associated information pertaining to each
+### fg.c
+- Brings a job with a given job number to the foreground and changes its state to running if it isn't already.
 
-kjob.c - sends a given signal to the job of given job number
+### env.c
+- Implements `setenv` and `unsetenv` commands.
 
-overkill.c - kills all the background processes
+### jobs.c
+- Prints all running background processes with associated information pertaining to each.
 
-redirection.c - input output redirection implemented
+### kjob.c
+- Sends a given signal to the job of a given job number.
 
-sig.c - implemented signal handling
+### overkill.c
+- Kills all the background processes.
+
+### redirection.c
+- Implements input/output redirection.
+
+### sig.c
+- Implements signal handling.
+
+## Error Handling
+Corresponding error messages will be displayed in case invalid arguments or an incorrect number of arguments are provided upon the execution of a certain command, depending on their functionality in the terminal.
+
+---
+
+Enjoy using the shell!
